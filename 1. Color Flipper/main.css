@@ -1,0 +1,31 @@
+/* Variables */
+:root {
+  --BIGSPACE: 2rem;
+  --MEDSPACE: 1.5rem
+  --NEXTCOLOR:#000;
+}
+/* ||RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  min-height: 100vh;
+  /* //color: rgb(133, 122, 200); */
+}
+.nav-center {
+  display: flex;
+  /* margin: var(--SPACE); */
+  color: var(-);
+}
+.nav-links {
+  display: flex;
+}
+.nav-links li {
+  margin: 0 var(--MEDSPACE);
+}
+.container {
+  /* center this div */
+  padding: 0;
+}
