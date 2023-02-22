@@ -121,7 +121,8 @@ function displayMenuButtons() {
   */
   const categories = menu.reduce(
     function (values, item) {
-      //values is the arr we are returning & does not include item.category -> item is the current element we are filtering
+      //values is the arr we are returning & does not include item.Its the accumulator.
+      //item is the current value. category -> item is the current element we are filtering
       if (!values.includes(item.category)) {
         //to check if string/array DOES NOT contain/include a specific value, use the exclamation mark before the includes method. Eg !arr.includes(item) -> if arr DOES NOT include item
         //this is same as DOES NOT INCLUDE.
@@ -129,7 +130,7 @@ function displayMenuButtons() {
       }
       return values;
     },
-    ["all"] //the reason we are having all in the array is coz it will always be there
+    ["all"] //the reason we are having all in the array is coz its the initial accumulator, & will always be there
   ); //return an array of string all
   //console.log(categories); //logs various categories we have
   const categoryBtns = categories
@@ -141,27 +142,49 @@ function displayMenuButtons() {
     .join("");
   console.log(categoryBtns);
   btnContainer.innerHTML = categoryBtns; //at first nothing will happen when clicked coz we are selecting btns before creating them dynamically 👆🏿. The sol is to select the btns once they have been created in the DOM
-  //buttons
+
+  //select the generated buttons
   const filterBtns = btnContainer.querySelectorAll(".filter-btn"); //you can say document or btnContainer
 
   //filter items according to button
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", function (event) {
       console.log(event.currentTarget.dataset.id); //dataset are custom html attributes that enable us to store/retrieve info using JS
-      const category = event.currentTarget.dataset.id;
+
+      const category = event.currentTarget.dataset.id; //assign button category to a variable.
       const menuCategory = menu.filter(function (menuItem) {
         //   console.log(menuItem.category);
         //if dataset category matches menuItem.categoty, return it
         if (menuItem.category === category) {
-          return menuItem;
+          return menuItem; //we are returning menu items array with same dataset id as button clicked.if button data-id is 'breakfast', return menu with breakfast
         }
       });
+
+      //give condition to buttons
       if (category === "all") {
         displayMenuItems(menu); //load the whole menu array
       } else {
-        displayMenuItems(menuCategory); //load menu with clicked btn data id
+        displayMenuItems(menuCategory); //load menu with clicked btn data id eg 'breakfast' ,'lunch'
       }
       console.log(menuCategory);
     });
   });
 }
+
+/*          ###SUMMARY###         
+ displayMenuButtons ==> 
+    1.first, reduce categories and store the value in an array of strings. This is what the reducer is doing:   
+          const categories = menu.reduce(function(accumulator, currentValue) {
+            if (!accumulator.includes(currentValue.category)) {
+                accumulator.push(currentValue.category)
+             }
+             return accumulator;
+            }, ['all'])
+            console.log(categories) //["all", "breakfast", "lunch", "supper", "dinner"]
+    2. Second, we map over the generated buttons & return an HTML text which we inject to the btn container for the generated buttons 
+    3. Loop over each button adding an event listener of click. Get the dataset id of each button
+    4. Filter the menu items and return items matching with button data id. If id = 'all' call displayMenuItems with all as an argument. Else, call displayMenuItems with the corresponding button id - if btn data id is breakfast then displayMenuItems(breakfast)
+
+
+    
+    */
