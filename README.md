@@ -4,3 +4,5 @@
 
     End button -> move to end of line
     Home button -> move to start of line
+    To REFRESH/RELOAD vs-code -> Ctrl + Shift + P then type Reload window
+    Find something within a file -> Ctrl + F

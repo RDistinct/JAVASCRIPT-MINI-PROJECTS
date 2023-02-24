@@ -1,3 +1,5 @@
+/* ==> This project demonstrates use of getBoundingClientRect() method(shows size & position of an element relative to the viewport) to get the height of a section, scrollY to detect pixels scrolled */
+
 //set date dynamic
 const date = document.getElementById("date");
 date.innerHTML = new Date().getFullYear();
@@ -66,23 +68,24 @@ scrollLinks.forEach(function (link) {
     const id = event.currentTarget.getAttribute("href").slice(1);
     console.log(id); //about/services/tours - doesnt have the hashtag
     //using slice to select a section of a string without modifying the original string.start from the index of 1 & skip the hashtag infront of the href
-    const element = document.getElementById(id); //this will help with getting the position
+    const element = document.getElementById(id); //this will help with getting the position of link
 
     //calculate the height
     const navHeight = navbar.getBoundingClientRect().height;
     const containerHeight = linksContainer.getBoundingClientRect().height;
-    const fixedNav = navbar.classList.contains("fixed-nav");
-    let position = element.offsetTop - navHeight; //this is coz navbar is fixed so we are subtracting area covered by navbar
+    const fixedNav = navbar.classList.contains("fixed-nav"); //keeps value of navbar if it has class fixed-nav
+    let position = element.offsetTop - navHeight; //this is coz navbar is fixed so we are subtracting area covered by navbar.offsetTop returns top position of an element relative to its offsetParent
     console.log(position); //we have the position where this particular element is.
     //check if navbar is fixedNav
     if (!fixedNav) {
+      //if nav contains fixed-nav,also subtract navHeight.we have already subtracted navHeight before, but when we start scrolling the navbar is out of flow
       position = position - navHeight;
     }
     if (navHeight > 82) {
-      //82 is the setup of the actual navbar
+      //82 is the setup of the actual navbar.If its greater than 82 which means the navbar is open
       position = position + containerHeight;
     }
-    window.scrollTo({ left: 0, top: position });
+    window.scrollTo({ left: 0, top: position, behavior: "smooth" });
     //close the links
     linksContainer.style.height = 0;
   });
