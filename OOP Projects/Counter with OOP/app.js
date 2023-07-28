@@ -10,7 +10,7 @@ function getElement(selection) {
 //getElement(".first-counter"); //renders the first-counter element
 //getElement("#head"); //renders the h1 element
 
-//function to create new elements instances that gets elements from getElement()
+//CONSTRUCTOR function to create new elements instances that gets elements from getElement()
 function Counter(element, value) {
   console.log(element, value);
   this.counter = element;
